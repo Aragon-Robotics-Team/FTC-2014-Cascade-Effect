@@ -54,9 +54,9 @@ void grabber() {
 }
 
 void outtake() {
-	if(joy1Btn(2))
+	if(joy1Btn(1))
 		servo[hopper] = 40;
-	else if(joy1Btn(4))
+	else if(joy1Btn(3))
 		servo[hopper] = 200
 }
 
