@@ -46,6 +46,16 @@ void drive()
 	}
 }
 
+
+void grabber()
+{
+	if(joy1Btn(2))
+		servo[latch] = 40;
+	else if(joy1Btn(4))
+		servo[latch] = 200;
+}
+
+
 task main() {
 
   initializeRobot();
@@ -54,5 +64,6 @@ task main() {
 
   while(true) {
   	getJoystickSettings(joystick);
+  	grabber();
   }
 }
