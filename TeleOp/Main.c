@@ -60,6 +60,21 @@ void outtake() {
 		servo[hopper] = 200
 }
 
+void rollers() {
+	bool isRunning;
+	if(joy2Btn(2)) {
+		if(isRunning)
+			isRunning = false;
+		else
+			isRunning = true;
+	}
+	wait1Msec(25);
+	if(isRunning)
+		motor[intakeRoller] = 96;
+	else
+		motor[intakeRoller] = 0;
+}
+
 task main() {
 
   initializeRobot();
