@@ -1,16 +1,15 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  HTMotor)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Motor,  motorA,           ,             tmotorNXT, openLoop)
 #pragma config(Motor,  motorB,           ,             tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,           ,             tmotorNXT, openLoop)
-#pragma config(Motor,  mtr_S1_C1_1,     intakeRoller,  tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_1,     intakeRoller,  tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C1_2,     frontRightDrive, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     backLeftDrive, tmotorTetrix, PIDControl, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C2_2,     backRightDrive, tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C2_2,     backRightDrive, tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C4_1,     lift,          tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C4_2,     frontLeftDrive, tmotorTetrix, openLoop, reversed)
 #pragma config(Servo,  srvo_S1_C3_1,    latch,                tServoStandard)
-#pragma config(Servo,  srvo_S1_C3_2,    hopper,               tServoStandard)
+#pragma config(Servo,  srvo_S1_C3_2,    hopper,               tServoContinuousRotation)
 #pragma config(Servo,  srvo_S1_C3_3,    servo3,               tServoNone)
 #pragma config(Servo,  srvo_S1_C3_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S1_C3_5,    servo5,               tServoNone)
@@ -48,9 +47,9 @@ void drive() {
 
 void grabber() {		//TODO: Calibrate to correct servo values
 	if(joy1Btn(2))
-		servo[latch] = 40;
+		servo[latch] = 120;
 	else if(joy1Btn(4))
-		servo[latch] = 200;
+		servo[latch] = 220;
 }
 
 void outtake() {	//TODO: Calibrate to correct servo values
@@ -84,14 +83,34 @@ void liftManual() {
 		motor[lift] = 0;
 }
 
+/*void liftAuto() {
+	if(joy2Btn(5)) {
+		if(nMotorEncoder[lift] > LOWCONST)
+			moto[lift] = -96;
+		else if(nMotorEncoder < LOWCONST)
+			motor[lift] = 96;
+		else
+			motor[lift] = 0;
+	}
+}*/
+
+void liftManualAna() {
+	if(abs(joystick.joy2_y1) > 32)
+		motor[lift] = joystick.joy2_y1;
+}
+
 int liftEncoderVal;
 void dispLiftEncoder() {
 	liftEncoderVal = nMotorEncoder[lift];
-	nxtDisplayTextLine(3,"%d",liftEncoderVal);
+	writeDebugStreamLine(3,"%d",liftEncoderVal);
 }
 
 int leftEncoderVal, rightEncoderVal;
 void dispDriveEncoders() {
+	leftEncoderVal = nMotorEncoder[backLeftDrive];
+	rightEncoderVal = nMotorEncoder[backRightDrive];
+	writeDebugStreamLine(4, "%d", leftEncoderVal);
+	writeDebugStreamLine(5, "%d", rightEncoderVal);
 }
 
 task main() {
@@ -105,8 +124,9 @@ task main() {
   	drive();
   	grabber();
   	outtake();
-  	rollers();
+  	//rollers();
   	//liftManual();
+  	liftManualAna();
   	dispLiftEncoder();
   }
 }
