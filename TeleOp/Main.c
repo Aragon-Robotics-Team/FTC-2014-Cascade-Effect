@@ -57,7 +57,7 @@ void outtake() {	//TODO: Calibrate to correct servo values
 	if(joy1Btn(1))
 		servo[hopper] = 40;
 	else if(joy1Btn(3))
-		servo[hopper] = 200
+		servo[hopper] = 200;
 }
 
 void rollers() {
@@ -75,6 +75,15 @@ void rollers() {
 		motor[intakeRoller] = 0;
 }
 
+void liftManual() {
+	if(joystick.joy2_TopHat == 0)
+		motor[lift] = 96;
+	else if(joystick.joy2_TopHat == 4)
+		motor[lift] = -96;
+	else
+		motor[lift] = 0;
+}
+
 task main() {
 
   initializeRobot();
@@ -86,5 +95,7 @@ task main() {
   	drive();
   	grabber();
   	outtake();
+  	rollers();
+  	liftManual();
   }
 }
