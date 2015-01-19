@@ -6,7 +6,7 @@
 #pragma config(Motor,  mtr_S1_C1_1,     intakeRoller,  tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     frontRightDrive, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     backLeftDrive, tmotorTetrix, PIDControl, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C2_2,     backRightDrive, tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C2_2,     backRightDrive, tmotorTetrix, PIDControl, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C4_1,     lift,          tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C4_2,     frontLeftDrive, tmotorTetrix, openLoop, reversed)
 #pragma config(Servo,  srvo_S1_C3_1,    latch,                tServoStandard)
@@ -84,6 +84,16 @@ void liftManual() {
 		motor[lift] = 0;
 }
 
+int liftEncoderVal;
+void dispLiftEncoder() {
+	liftEncoderVal = nMotorEncoder[lift];
+	nxtDisplayTextLine(3,"%d",liftEncoderVal);
+}
+
+int leftEncoderVal, rightEncoderVal;
+void dispDriveEncoders() {
+}
+
 task main() {
 
   initializeRobot();
@@ -96,6 +106,7 @@ task main() {
   	grabber();
   	outtake();
   	rollers();
-  	liftManual();
+  	//liftManual();
+  	dispLiftEncoder();
   }
 }
