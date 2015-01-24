@@ -97,19 +97,25 @@ void rustle() {
 	motor[frontRightDrive] = 50;
 	motor[backRightDrive] = 50;
 
-	wait1Msec(100);
+	motor[lift] = 50;
+
+	wait1Msec(50);
 
 	motor[frontLeftDrive] = -50;
 	motor[backLeftDrive] = -50;
 	motor[frontRightDrive] = -50;
 	motor[backRightDrive] = -50;
 
-	wait1Msec(100);
+	motor[lift] = -50;
+
+	wait1Msec(50);
 
 	motor[frontLeftDrive] = 0;
 	motor[backLeftDrive] = 0;
 	motor[frontRightDrive] = 0;
 	motor[backRightDrive] = 0;
+
+	motor[lift] = 0;
 }
 
 task main()
@@ -130,6 +136,7 @@ task main()
   servo[hopper] = HOPPER_SCORE;
   wait1Msec(2250);	//Wait for balls to drop in
 
+  rustle();
   rustle();
 
   /*turnToParking();
