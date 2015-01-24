@@ -45,7 +45,7 @@ void drive() {
 }
 
 
-void grabber() {		//TODO: Calibrate to correct servo values
+void grabber() {
 	if(joy1Btn(2))
 		servo[latch] = 125;
 	else if(joy1Btn(4))
