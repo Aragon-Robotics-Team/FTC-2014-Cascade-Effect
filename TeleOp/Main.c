@@ -52,7 +52,7 @@ void grabber() {		//TODO: Calibrate to correct servo values
 		servo[latch] = 220;
 }
 
-void outtake() {	//TODO: Calibrate to correct servo values
+void outtake() {
 	if(joy1Btn(1))
 		servo[hopper] = 40;
 	else if(joy1Btn(3))
