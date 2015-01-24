@@ -56,14 +56,14 @@ void outtake() {	//Migrate to joy2 for Dual Drivers
 	if(joy1Btn(6))	//Right Bumper
 		servo[hopper] = 49;	//Scoring
 	else if(joy1Btn(8)) //Right Trigger
-		servo[hopper] = 160;	//Upright
+		servo[hopper] = 165;	//Upright
 }
 
 void rollers() {	//Migrate to joy2 for Dual Drivers
 	if(joy1Btn(1))
 		motor[intakeRoller] = 96;
 	else
-		motor[intakeRoller] = 0;
+		motor[intakeRoller] = 0;//Migrate to joy2 for Dual Drivers
 }
 
 void liftManual() {	//Migrate to joy2 for Dual Drivers
