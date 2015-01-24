@@ -20,7 +20,7 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
-const float CREEP_SPEED = 0.5;
+const float CREEP_SPEED = 0.5;	//Power multiplier, must be between -1 and 1 (negative for inverted controls
 
 void initializeRobot() {
 
