@@ -91,6 +91,27 @@ void driveAndPark() {
   motor[backRightDrive] = 0;
 }
 
+void rustle() {
+	motor[frontLeftDrive] = 50;
+	motor[backLeftDrive] = 50;
+	motor[frontRightDrive] = 50;
+	motor[backRightDrive] = 50;
+
+	wait1Msec(100);
+
+	motor[frontLeftDrive] = -50;
+	motor[backLeftDrive] = -50;
+	motor[frontRightDrive] = -50;
+	motor[backRightDrive] = -50;
+
+	wait1Msec(100);
+
+	motor[frontLeftDrive] = 0;
+	motor[backLeftDrive] = 0;
+	motor[frontRightDrive] = 0;
+	motor[backRightDrive] = 0;
+}
+
 task main()
 {
   initializeRobot();
@@ -102,12 +123,14 @@ task main()
   driveTo60();
 
   servo[latch] = GRABBER_DOWN;
-  wait1Msec(1000);	//Wait for latch to reach destination
+  wait1Msec(750);	//Wait for latch to reach destination
 
   liftTo60();
 
   servo[hopper] = HOPPER_SCORE;
-  wait1Msec(3000);	//Wait for balls to drop in
+  wait1Msec(2250);	//Wait for balls to drop in
+
+  rustle();
 
   /*turnToParking();
 
