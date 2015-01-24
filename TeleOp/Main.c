@@ -47,16 +47,16 @@ void drive() {
 
 void grabber() { //Migrate to joy2 for Dual Drivers
 	if(joy1Btn(2))
-		servo[latch] = 125;
+		servo[latch] = 125;	//Down
 	else if(joy1Btn(4))
-		servo[latch] = 220;
+		servo[latch] = 220;	//Upright
 }
 
 void outtake() {	//Migrate to joy2 for Dual Drivers
 	if(joy1Btn(6))	//Right Bumper
-		servo[hopper] = 49;
+		servo[hopper] = 49;	//Scoring
 	else if(joy1Btn(8)) //Right Trigger
-		servo[hopper] = 160;
+		servo[hopper] = 160;	//Upright
 }
 
 void rollers() {	//Migrate to joy2 for Dual Drivers
