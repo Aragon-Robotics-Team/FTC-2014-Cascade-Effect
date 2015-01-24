@@ -81,7 +81,7 @@ task main()
 
   waitForStart(); // Wait for the beginning of autonomous phase.
 
-  servo[latch] = 120;
+  servo[latch] = 220;	//Upright
 
   nMotorEncoder[backRightDrive] = 0;
 
@@ -95,7 +95,7 @@ task main()
   motor[frontRightDrive] = 0;
   motor[backRightDrive] = 0;
 
-  servo[latch] = -200;
+  servo[latch] = 125;	//Down
 
   while(true);
 

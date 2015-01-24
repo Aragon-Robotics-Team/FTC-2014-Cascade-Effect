@@ -20,7 +20,13 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
+
+const int DEADBAND = 8;	//1/16th deadband for the terrible gamepads
 const float CREEP_SPEED = 0.5;	//Power multiplier, must be between -1 and 1 (negative for inverted controls
+const int GRABBER_DOWN = 125;
+const int GRABBER_UP = 220;
+const int HOPPER_LOAD = 165;
+const int HOPPER_SCORE = 49;
 
 void initializeRobot() {
 
@@ -28,7 +34,7 @@ void initializeRobot() {
 }
 
 void drive(float power) {
-	if(abs(joystick.joy1_y1) > 8) {
+	if(abs(joystick.joy1_y1) > DEADBAND) {
  		motor[frontLeftDrive] = joystick.joy1_y1 * power;
  		motor[backLeftDrive] = joystick.joy1_y1 * power;
 	}
@@ -36,7 +42,7 @@ void drive(float power) {
 		motor[frontLeftDrive] = 0;
 		motor[backLeftDrive] = 0;
 	}
- 	if(abs(joystick.joy1_y2) > 8) {
+ 	if(abs(joystick.joy1_y2) > DEADBAND) {
  		motor[frontRightDrive] = joystick.joy1_y2 * power;
  		motor[backRightDrive] = joystick.joy1_y2 * power;
 	}
@@ -49,16 +55,16 @@ void drive(float power) {
 
 void grabber() { //Migrate to joy2 for Dual Drivers
 	if(joy1Btn(2))
-		servo[latch] = 125;	//Down
+		servo[latch] = GRABBER_DOWN;
 	else if(joy1Btn(4))
-		servo[latch] = 220;	//Upright
+		servo[latch] = GRABBER_UP;	//Upright
 }
 
 void outtake() {	//Migrate to joy2 for Dual Drivers
 	if(joy1Btn(6))	//Right Bumper
-		servo[hopper] = 49;	//Scoring
+		servo[hopper] = HOPPER_SCORE;
 	else if(joy1Btn(8)) //Right Trigger
-		servo[hopper] = 165;	//Upright
+		servo[hopper] = HOPPER_LOAD;
 }
 
 void rollers() {	//Migrate to joy2 for Dual Drivers
@@ -88,10 +94,10 @@ void liftManual() {	//Migrate to joy2 for Dual Drivers
 	}
 }*/
 
-void liftManualAna() {
+/*void liftManualAna() {
 	if(abs(joystick.joy2_y1) > 32)
 		motor[lift] = joystick.joy2_y1;
-}
+}*/
 
 task main() {
 
@@ -101,6 +107,7 @@ task main() {
 
   while(true) {
   	getJoystickSettings(joystick);
+
   	if(joy1Btn(5))	//Left trigger for creep speed
   		drive(CREEP_SPEED);
   	else
