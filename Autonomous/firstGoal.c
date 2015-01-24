@@ -32,7 +32,7 @@ const int HOPPER_LOAD = 165;
 const int HOPPER_SCORE = 49;
 const int ENC_RAMP_TO_60 = 8000;
 const int ENC_60_TO_PARK = 840;	//TODO: Measure this value. Current value is standing in so code will compile
-const int ENC_LIFT_TO_60 = 840;	//TODO: Measure this value. Current value is standing in so code will compile
+const int ENC_LIFT_TO_60 = 4000;	//TODO: Measure this value. Current value is standing in so code will compile
 
 void driveTo60() {
 	nMotorEncoder[backRightDrive] = 0;
@@ -42,7 +42,8 @@ void driveTo60() {
   motor[frontRightDrive] = -100;
   motor[backRightDrive] = -100;
 
-  while(abs(nMotorEncoder[backRightDrive] - ENC_RAMP_TO_60) > 50);	//Wait until within threshold
+  //while(abs(nMotorEncoder[backRightDrive] - ENC_RAMP_TO_60) > 50) {}	//Wait until within threshold
+  wait1Msec(4500);
 
   motor[frontLeftDrive] = 0;
   motor[backLeftDrive] = 0;
@@ -108,9 +109,9 @@ task main()
   servo[hopper] = HOPPER_SCORE;
   wait1Msec(3000);	//Wait for balls to drop in
 
-  turnToParking();
+  /*turnToParking();
 
   driveAndPark();
-
+  */
   while(true);	//Do nothing until game is done
 }
