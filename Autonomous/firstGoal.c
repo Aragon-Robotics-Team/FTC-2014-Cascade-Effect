@@ -112,5 +112,5 @@ task main()
 
   driveAndPark();
 
-  while(1);	//Do nothing until game is done
+  while(true);	//Do nothing until game is done
 }
