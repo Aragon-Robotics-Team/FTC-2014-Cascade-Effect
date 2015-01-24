@@ -47,7 +47,7 @@ void drive() {
 
 void grabber() {		//TODO: Calibrate to correct servo values
 	if(joy1Btn(2))
-		servo[latch] = 120;
+		servo[latch] = 125;
 	else if(joy1Btn(4))
 		servo[latch] = 220;
 }
@@ -75,11 +75,11 @@ void rollers() {
 }
 
 void liftManual() {
-	if(joystick.joy2_TopHat == 0)
-		motor[lift] = 96;
-	else if(joystick.joy2_TopHat == 4)
+	if(joystick.joy1_TopHat == 0)
+		motor[lift] = 128;
+	else if(joystick.joy1_TopHat == 4)
 		motor[lift] = -96;
-	else
+	else if(joystick.joy1_TopHat == -1)
 		motor[lift] = 0;
 }
 
@@ -111,6 +111,6 @@ task main() {
   	grabber();
   	outtake();
   	//rollers();
-  	//liftManual();
+  	liftManual();
   }
 }
