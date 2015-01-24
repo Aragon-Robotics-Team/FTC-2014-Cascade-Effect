@@ -74,6 +74,27 @@ void initializeRobot()
 // At the end of the autonomous period, the FMS will autonmatically abort (stop) execution of the program.
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+const int GRABBER_DOWN = 125;
+const int GRABBER_UP = 220;
+const int HOPPER_LOAD = 165;
+const int HOPPER_SCORE = 49;
+const int ENC_RAMP_TO_60 = 8000;
+
+void driveTo60() {
+	nMotorEncoder[backRightDrive] = 0;
+
+  motor[frontLeftDrive] = -100;
+  motor[backLeftDrive] = -100;
+  motor[frontRightDrive] = -100;
+  motor[backRightDrive] = -100;
+
+  while(abs(nMotorEncoder[backRightDrive] - ENC_RAMP_TO_60) > 50);
+
+  motor[frontLeftDrive] = 0;
+  motor[backLeftDrive] = 0;
+  motor[frontRightDrive] = 0;
+  motor[backRightDrive] = 0;
+}
 
 task main()
 {
@@ -81,21 +102,12 @@ task main()
 
   waitForStart(); // Wait for the beginning of autonomous phase.
 
-  servo[latch] = 220;	//Upright
+  servo[latch] = GRABBER_UP;
 
-  nMotorEncoder[backRightDrive] = 0;
+  driveTo60();
 
-  motor[frontLeftDrive] = -100;
-  motor[backLeftDrive] = -100;
-  motor[frontRightDrive] = -100;
-  motor[backRightDrive] = -100;
-  while(abs(nMotorEncoder[backRightDrive] - 8000) > 50) {}
-  motor[frontLeftDrive] = 0;
-  motor[backLeftDrive] = 0;
-  motor[frontRightDrive] = 0;
-  motor[backRightDrive] = 0;
-
-  servo[latch] = 125;	//Down
+  servo[latch] = GRABBER_DOWN;
+  wait1Msec(1000);	//Wait for latch to reach destination
 
   while(true);
 
