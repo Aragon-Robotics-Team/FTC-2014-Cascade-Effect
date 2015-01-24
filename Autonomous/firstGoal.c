@@ -43,7 +43,7 @@ void driveTo60() {
   motor[backRightDrive] = -100;
 
   //while(abs(nMotorEncoder[backRightDrive] - ENC_RAMP_TO_60) > 50) {}	//Wait until within threshold
-  wait1Msec(4500);
+  wait1Msec(3000);
 
   motor[frontLeftDrive] = 0;
   motor[backLeftDrive] = 0;
@@ -129,12 +129,12 @@ task main()
   driveTo60();
 
   servo[latch] = GRABBER_DOWN;
-  wait1Msec(750);	//Wait for latch to reach destination
+  wait1Msec(1000);	//Wait for latch to reach destination
 
   liftTo60();
 
   servo[hopper] = HOPPER_SCORE;
-  wait1Msec(2250);	//Wait for balls to drop in
+  wait1Msec(3000);	//Wait for balls to drop in
 
   rustle();
   rustle();
