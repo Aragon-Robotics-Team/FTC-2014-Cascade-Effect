@@ -31,6 +31,8 @@ const int GRABBER_UP = 220;
 const int HOPPER_LOAD = 165;
 const int HOPPER_SCORE = 49;
 const int ENC_RAMP_TO_60 = 8000;
+const int ENC_60_TO_PARK = 840;	//TODO: Measure this value. Current value is standing in so code will compile
+const int ENC_LIFT_TO_60 = 840;	//TODO: Measure this value. Current value is standing in so code will compile
 
 void driveTo60() {
 	nMotorEncoder[backRightDrive] = 0;
@@ -40,7 +42,47 @@ void driveTo60() {
   motor[frontRightDrive] = -100;
   motor[backRightDrive] = -100;
 
-  while(abs(nMotorEncoder[backRightDrive] - ENC_RAMP_TO_60) > 50);
+  while(abs(nMotorEncoder[backRightDrive] - ENC_RAMP_TO_60) > 50);	//Wait until within threshold
+
+  motor[frontLeftDrive] = 0;
+  motor[backLeftDrive] = 0;
+  motor[frontRightDrive] = 0;
+  motor[backRightDrive] = 0;
+}
+
+void liftTo60() {	//TODO: Write it
+	nMotorEncoder[lift] = 0;
+
+	motor[lift] = 128;
+
+	while(abs(nMotorEncoder[lift] - ENC_LIFT_TO_60) > 128);
+
+	motor[lift] = 0;
+}
+
+void turnToParking() {
+	motor[frontLeftDrive] = -96;
+	motor[backLeftDrive]  = -96;
+	motor[frontRightDrive] = 96;
+	motor[backRightDrive] = 96;
+
+	wait1Msec(840);	//TODO: Measure value. Current is standin so code compiles
+
+	motor[frontLeftDrive] = 0;
+  motor[backLeftDrive] = 0;
+  motor[frontRightDrive] = 0;
+  motor[backRightDrive] = 0;
+}
+
+void driveAndPark() {
+	nMotorEncoder[backRightDrive] = 0;
+
+  motor[frontLeftDrive] = -100;
+  motor[backLeftDrive] = -100;
+  motor[frontRightDrive] = -100;
+  motor[backRightDrive] = -100;
+
+  while(abs(nMotorEncoder[backRightDrive] - ENC_60_TO_PARK) > 50);	//Wait until within threshold
 
   motor[frontLeftDrive] = 0;
   motor[backLeftDrive] = 0;
@@ -61,8 +103,14 @@ task main()
   servo[latch] = GRABBER_DOWN;
   wait1Msec(1000);	//Wait for latch to reach destination
 
-  while(true);
+  liftTo60();
 
-  motor[lift] = 96;
+  servo[hopper] = HOPPER_SCORE;
+  wait1Msec(3000);	//Wait for balls to drop in
 
+  turnToParking();
+
+  driveAndPark();
+
+  while(1);	//Do nothing until game is done
 }
