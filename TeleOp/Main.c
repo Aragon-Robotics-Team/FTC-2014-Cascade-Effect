@@ -20,23 +20,25 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
+const float CREEP_SPEED = 0.5;
+
 void initializeRobot() {
 
   return;
 }
 
-void drive() {
+void drive(float power) {
 	if(abs(joystick.joy1_y1) > 8) {
- 		motor[frontLeftDrive] = joystick.joy1_y1;
- 		motor[backLeftDrive] = joystick.joy1_y1;
+ 		motor[frontLeftDrive] = joystick.joy1_y1 * power;
+ 		motor[backLeftDrive] = joystick.joy1_y1 * power;
 	}
 	else {
 		motor[frontLeftDrive] = 0;
 		motor[backLeftDrive] = 0;
 	}
  	if(abs(joystick.joy1_y2) > 8) {
- 		motor[frontRightDrive] = joystick.joy1_y2;
- 		motor[backRightDrive] = joystick.joy1_y2;
+ 		motor[frontRightDrive] = joystick.joy1_y2 * power;
+ 		motor[backRightDrive] = joystick.joy1_y2 * power;
 	}
 	else {
 		motor[frontRightDrive] = 0;
@@ -99,7 +101,10 @@ task main() {
 
   while(true) {
   	getJoystickSettings(joystick);
-  	drive();
+  	if(joy1Btn(7))	//Left trigger for creep speed
+  		drive(1);
+  	else
+  		drive(CREEP_SPEED);
   	grabber();
   	outtake();
   	rollers();
