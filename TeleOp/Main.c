@@ -45,28 +45,28 @@ void drive() {
 }
 
 
-void grabber() {
+void grabber() { //Migrate to joy2 for Dual Drivers
 	if(joy1Btn(2))
 		servo[latch] = 125;
 	else if(joy1Btn(4))
 		servo[latch] = 220;
 }
 
-void outtake() {
-	if(joy1Btn(1))
+void outtake() {	//Migrate to joy2 for Dual Drivers
+	if(joy1Btn(6))	//Right Bumper
 		servo[hopper] = 49;
-	else if(joy1Btn(3))
+	else if(joy1Btn(8)) //Right Trigger
 		servo[hopper] = 160;
 }
 
-void rollers() {
-	if(joy1Btn(6))
+void rollers() {	//Migrate to joy2 for Dual Drivers
+	if(joy1Btn(1))
 		motor[intakeRoller] = 96;
 	else
 		motor[intakeRoller] = 0;
 }
 
-void liftManual() {
+void liftManual() {	//Migrate to joy2 for Dual Drivers
 	if(joystick.joy1_TopHat == 0)
 		motor[lift] = 128;
 	else if(joystick.joy1_TopHat == 4)
