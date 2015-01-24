@@ -100,6 +100,5 @@ task main()
   while(true);
 
   motor[lift] = 96;
-  while(abs(nMotorEncoder[lift] - ))
 
 }

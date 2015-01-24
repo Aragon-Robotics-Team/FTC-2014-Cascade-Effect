@@ -54,21 +54,13 @@ void grabber() {		//TODO: Calibrate to correct servo values
 
 void outtake() {
 	if(joy1Btn(1))
-		servo[hopper] = 40;
+		servo[hopper] = 49;
 	else if(joy1Btn(3))
-		servo[hopper] = 200;
+		servo[hopper] = 160;
 }
 
 void rollers() {
-	bool isRunning;
-	if(joy2Btn(2)) {
-		if(isRunning)
-			isRunning = false;
-		else
-			isRunning = true;
-	}
-	wait1Msec(25);
-	if(isRunning)
+	if(joy1Btn(6))
 		motor[intakeRoller] = 96;
 	else
 		motor[intakeRoller] = 0;
@@ -110,7 +102,7 @@ task main() {
   	drive();
   	grabber();
   	outtake();
-  	//rollers();
+  	rollers();
   	liftManual();
   }
 }
