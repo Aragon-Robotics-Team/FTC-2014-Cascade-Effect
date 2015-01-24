@@ -50,7 +50,7 @@ void driveTo60() {
   motor[backRightDrive] = 0;
 }
 
-void liftTo60() {	//TODO: Write it
+void liftTo60() {
 	nMotorEncoder[lift] = 0;
 
 	motor[lift] = 128;
