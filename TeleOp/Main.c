@@ -102,9 +102,9 @@ task main() {
   while(true) {
   	getJoystickSettings(joystick);
   	if(joy1Btn(5))	//Left trigger for creep speed
-  		drive(1);
-  	else
   		drive(CREEP_SPEED);
+  	else
+  		drive(1);
   	grabber();
   	outtake();
   	rollers();
