@@ -99,20 +99,6 @@ void liftManualAna() {
 		motor[lift] = joystick.joy2_y1;
 }
 
-int liftEncoderVal;
-void dispLiftEncoder() {
-	liftEncoderVal = nMotorEncoder[lift];
-	writeDebugStreamLine(3,"%d",liftEncoderVal);
-}
-
-int leftEncoderVal, rightEncoderVal;
-void dispDriveEncoders() {
-	leftEncoderVal = nMotorEncoder[backLeftDrive];
-	rightEncoderVal = nMotorEncoder[backRightDrive];
-	writeDebugStreamLine(4, "%d", leftEncoderVal);
-	writeDebugStreamLine(5, "%d", rightEncoderVal);
-}
-
 task main() {
 
   initializeRobot();
@@ -126,7 +112,5 @@ task main() {
   	outtake();
   	//rollers();
   	//liftManual();
-  	liftManualAna();
-  	dispLiftEncoder();
   }
 }
