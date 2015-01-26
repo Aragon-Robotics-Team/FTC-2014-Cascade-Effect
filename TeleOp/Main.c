@@ -53,28 +53,28 @@ void drive(float power) {
 }
 
 
-void grabber() { //DONT Migrate to joy2 for Dual Drivers
+void grabber() { //DONT Migrate to joy1 for Dual Drivers
 	if(joy1Btn(2))
 		servo[latch] = GRABBER_DOWN;
 	else if(joy1Btn(4))
 		servo[latch] = GRABBER_UP;	//Upright
 }
 
-void outtake() {	//Migrate to joy2 for Dual Drivers
-	if(joy1Btn(6))	//Right Bumper
+void outtake() {	//Migrate to joy1 for Dual Drivers
+	if(joy2Btn(6))	//Right Bumper
 		servo[hopper] = HOPPER_SCORE;
-	else if(joy1Btn(8)) //Right Trigger
+	else if(joy2Btn(8)) //Right Trigger
 		servo[hopper] = HOPPER_LOAD;
 }
 
-void rollers() {	//Migrate to joy2 for Dual Drivers
-	if(joy1Btn(1))
+void rollers() {	//Migrate to joy1 for Dual Drivers
+	if(joy2Btn(1))
 		motor[intakeRoller] = 96;
 	else
-		motor[intakeRoller] = 0;//Migrate to joy2 for Dual Drivers
+		motor[intakeRoller] = 0;//Migrate to joy1 for Dual Drivers
 }
 
-void liftManual() {	//Migrate to joy2 for Dual Drivers
+void liftManual() {	//Migrate to joy1 for Dual Drivers
 	if(joystick.joy2_TopHat == 0)
 		motor[lift] = 128;
 	else if(joystick.joy2_TopHat == 4)
@@ -95,8 +95,8 @@ void liftManual() {	//Migrate to joy2 for Dual Drivers
 }*/
 
 /*void liftManualAna() {
-	if(abs(joystick.joy2_y1) > 32)
-		motor[lift] = joystick.joy2_y1;
+	if(abs(joystick.joy1_y1) > 32)
+		motor[lift] = joystick.joy1_y1;
 }*/
 
 task main() {
@@ -112,6 +112,7 @@ task main() {
   		drive(CREEP_SPEED);
   	else
   		drive(1);
+
   	grabber();
   	outtake();
   	rollers();

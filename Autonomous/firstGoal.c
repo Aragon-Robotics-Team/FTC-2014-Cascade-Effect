@@ -56,7 +56,8 @@ void liftTo60() {
 
 	motor[lift] = 128;
 
-	while(abs(nMotorEncoder[lift] - ENC_LIFT_TO_60) > 128);
+	//while(abs(nMotorEncoder[lift] - ENC_LIFT_TO_60) > 128);
+	wait1Msec(2000);
 
 	motor[lift] = 0;
 }
@@ -99,7 +100,7 @@ void rustle() {
 
 	motor[lift] = 50;
 
-	wait1Msec(50);
+	wait1Msec(150);
 
 	motor[frontLeftDrive] = -50;
 	motor[backLeftDrive] = -50;
@@ -108,7 +109,7 @@ void rustle() {
 
 	motor[lift] = -50;
 
-	wait1Msec(50);
+	wait1Msec(150);
 
 	motor[frontLeftDrive] = 0;
 	motor[backLeftDrive] = 0;
