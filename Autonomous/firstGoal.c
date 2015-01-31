@@ -30,7 +30,6 @@ const int GRABBER_DOWN = 125;
 const int GRABBER_UP = 220;
 const int HOPPER_LOAD = 165;
 const int HOPPER_SCORE = 49;
-const int HOPPER_BEGIN = 0;
 const int ENC_RAMP_TO_60 = 8000;
 const int ENC_60_TO_PARK = 840;	//TODO: Measure this value. Current value is standing in so code will compile
 const int ENC_LIFT_TO_60 = 4000;	//TODO: Measure this value. Current value is standing in so code will compile
@@ -133,7 +132,7 @@ task main()
   servo[latch] = GRABBER_DOWN;
   wait1Msec(1000);	//Wait for latch to reach destination
 
-  servo[hopper] = HOPPER_BEGIN;
+  servo[hopper] = HOPPER_LOAD;
   wait1Msec(1000);
 
   liftTo60();
