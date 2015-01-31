@@ -26,7 +26,8 @@ const float CREEP_SPEED = 0.5;	//Power multiplier, must be between -1 and 1 (neg
 const int GRABBER_DOWN = 125;
 const int GRABBER_UP = 220;
 const int HOPPER_LOAD = 165;
-const int HOPPER_SCORE = 49;
+const int HOPPER_AIM = 100;
+const int HOPPER_SCORE = 45;
 
 void initializeRobot() {
 
@@ -67,9 +68,50 @@ void outtake() {	//Migrate to joy1 for Dual Drivers
 		servo[hopper] = HOPPER_LOAD;
 }
 
+int outtakeMode = 0;	//0: LOAD, 1: AIM, 2: SCORE
+void outtakeSpecial() {
+	if(joy2Btn(8))
+		servo[hopper] = HOPPER_LOAD;
+	else if(joy2Btn(6)) {
+		switch(outtakeMode) {
+		case 0:
+			outtakeMode = 1;
+			wait1Msec(200);
+			break;
+		case 1:
+			outtakeMode = 2;
+			wait1Msec(200);
+			break;
+		case 2:
+			outtakeMode = 0;
+			wait1Msec(200);
+			break;
+		default:
+			outtakeMode = 0;
+			break;
+		}
+	}
+	switch(outtakeMode) {
+	case 0:
+			servo[hopper] = HOPPER_LOAD;
+			break;
+	case 1:
+		servo[hopper] = HOPPER_AIM;
+		break;
+	case 2:
+		servo[hopper] = HOPPER_SCORE;
+		break;
+	default:
+		outtakeMode = 0;
+		break;
+	}
+}
+
 void rollers() {	//Migrate to joy1 for Dual Drivers
 	if(joy2Btn(1))
 		motor[intakeRoller] = 96;
+	else if(joy2Btn(3))
+		motor[intakeRoller] = -96;
 	else
 		motor[intakeRoller] = 0;//Migrate to joy1 for Dual Drivers
 }
@@ -114,7 +156,7 @@ task main() {
   		drive(1);
 
   	grabber();
-  	outtake();
+  	outtakeSpecial();
   	rollers();
   	liftManual();
   }
