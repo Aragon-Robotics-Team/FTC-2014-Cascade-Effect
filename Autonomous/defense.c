@@ -37,10 +37,13 @@ const int ENC_LIFT_TO_60 = 4000;	//TODO: Measure this value. Current value is st
 void blockOpposingRobot() {
 	nMotorEncoder[backRightDrive] = 0;
 
+	motor[frontRightDrive] = -100;
+	motor[backRightDrive] = -100;
+
+	wait1Msec(200);
+
   motor[frontLeftDrive] = -100;
   motor[backLeftDrive] = -100;
-  motor[frontRightDrive] = -100;
-  motor[backRightDrive] = -100;
 
   //while(abs(nMotorEncoder[backRightDrive] - ENC_RAMP_TO_60) > 50) {}	//Wait until within threshold
   wait1Msec(2500);

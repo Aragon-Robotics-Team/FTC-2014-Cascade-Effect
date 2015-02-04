@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  HTMotor)
-#pragma config(Motor,  motorA,           ,             tmotorNXT, openLoop)
+#pragma config(Motor,  motorA,           ,             tmotorNXT, openLoop).
 #pragma config(Motor,  motorB,           ,             tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,           ,             tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C1_1,     intakeRoller,  tmotorTetrix, openLoop, reversed)
@@ -71,9 +71,10 @@ void outtake() {	//Migrate to joy1 for Dual Drivers
 int outtakeMode = 0;	//0: LOAD, 1: AIM, 2: SCORE
 void outtakeSpecial() {
 	if(joy2Btn(8))
-		servo[hopper] = HOPPER_LOAD;
+		outtakeMode = 0;
 	else if(joy2Btn(6)) {
 		switch(outtakeMode) {
+
 		case 0:
 			outtakeMode = 1;
 			wait1Msec(200);
