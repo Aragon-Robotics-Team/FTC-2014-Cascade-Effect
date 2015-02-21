@@ -20,7 +20,7 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
-const int DEADBAND = 8;	//1/16th deadband for the terrible gamepads
+const int DEADBAND = 32;	//1/16th deadband for the terrible gamepads
 const int LATCH_DOWN = 125;
 const int LATCH_UP = 220;
 const int HOPPER_LOAD = 165;
