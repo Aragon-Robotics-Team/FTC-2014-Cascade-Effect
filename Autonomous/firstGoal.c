@@ -21,9 +21,6 @@ const int LATCH_DOWN = 125;
 const int LATCH_UP = 220;
 const int HOPPER_LOAD = 165;
 const int HOPPER_SCORE = 49;
-const int ENC_RAMP_TO_60 = 8000;
-const int ENC_60_TO_PARK = 840;	//TODO: Measure this value. Current value is standing in so code will compile
-const int ENC_LIFT_TO_60 = 4000;	//TODO: Measure this value. Current value is standing in so code will compile
 
 void initializeRobot() {
 	servo[hopper] = HOPPER_LOAD;
@@ -55,16 +52,6 @@ void liftTo60() {
 	motor[lift] = 0;
 }
 
-void turnToParking() {
-	motor[leftDrive]  = -96;
-	motor[rightDrive] = 96;
-
-	wait1Msec(840);	//TODO: Measure value. Current is standin so code compiles
-
-  motor[leftDrive] = 0;
-  motor[rightDrive] = 0;
-}
-
 void rustle() {
 	motor[leftDrive] = 50;
 	motor[rightDrive] = 50;
@@ -91,8 +78,6 @@ task main()
   initializeRobot();
 
   waitForStart(); // Wait for the beginning of autonomous phase.
-
-  servo[latch] = LATCH_UP;
 
   driveTo60();
 
