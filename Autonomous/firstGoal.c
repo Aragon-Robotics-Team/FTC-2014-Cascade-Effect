@@ -19,10 +19,9 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
-void initializeRobot()
-{
-  //NOT ALLOWED TO USE; NEED STICKER
-
+void initializeRobot() {
+	servo[hopper] = HOPPER_LOAD;
+	servo[latch] = LATCH_UP;
   return;
 }
 

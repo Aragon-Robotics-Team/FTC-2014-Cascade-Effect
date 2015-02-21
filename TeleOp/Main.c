@@ -21,15 +21,15 @@
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
 const int DEADBAND = 8;	//1/16th deadband for the terrible gamepads
-const int GRABBER_DOWN = 125;
-const int GRABBER_UP = 220;
+const int LATCH_DOWN = 125;
+const int LATCH_UP = 220;
 const int HOPPER_LOAD = 165;
 const int HOPPER_AIM = 100;
 const int HOPPER_SCORE = 45;
 
 void initializeRobot() {
 	servo[hopper] = HOPPER_LOAD;
-	servo[latch] = GRABBER_UP;
+	servo[latch] = LATCH_UP;
   return;
 }
 
@@ -44,12 +44,11 @@ void drive(float power) {
 		motor[rightDrive] = 0;
 }
 
-
-void grabber() { //DONT Migrate to joy1 for Dual Drivers
+void doLatch() { //DONT Migrate to joy1 for Dual Drivers
 	if(joy1Btn(2))
-		servo[latch] = GRABBER_DOWN;
+		servo[latch] = LATCH_DOWN;
 	else if(joy1Btn(4))
-		servo[latch] = GRABBER_UP;	//Upright
+		servo[latch] = LATCH_UP;	//Upright
 }
 
 void outtake() {	//Migrate to joy1 for Dual Drivers
@@ -65,37 +64,34 @@ void outtakeSpecial() {
 		outtakeMode = 0;
 	else if(joy1Btn(6)) {
 		switch(outtakeMode) {
-
-		case 0:
-			outtakeMode = 1;
-			wait1Msec(200);
-			break;
-		case 1:
-			outtakeMode = 2;
-			wait1Msec(200);
-			break;
-		case 2:
-			outtakeMode = 0;
-			wait1Msec(200);
-			break;
-		default:
-			outtakeMode = 0;
-			break;
+			case 0:
+				outtakeMode = 1;
+				wait1Msec(200);
+				break;
+			case 1:
+				outtakeMode = 2;
+				wait1Msec(200);
+				break;
+			case 2:
+				outtakeMode = 0;
+				wait1Msec(200);
+				break;
+			default:
+				outtakeMode = 0;
 		}
 	}
 	switch(outtakeMode) {
-	case 0:
-			servo[hopper] = HOPPER_LOAD;
+		case 0:
+				servo[hopper] = HOPPER_LOAD;
+				break;
+		case 1:
+			servo[hopper] = HOPPER_AIM;
 			break;
-	case 1:
-		servo[hopper] = HOPPER_AIM;
-		break;
-	case 2:
-		servo[hopper] = HOPPER_SCORE;
-		break;
-	default:
-		outtakeMode = 0;
-		break;
+		case 2:
+			servo[hopper] = HOPPER_SCORE;
+			break;
+		default:
+			outtakeMode = 0;
 	}
 }
 
@@ -126,7 +122,7 @@ task main() {
   while(true) {
   	getJoystickSettings(joystick);
   	drive(1);
-  	grabber();
+  	doLatch();
   	outtakeSpecial();
   	rollers();
   	liftManual();
