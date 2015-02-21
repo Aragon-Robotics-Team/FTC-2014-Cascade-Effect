@@ -28,6 +28,8 @@ const int HOPPER_AIM = 100;
 const int HOPPER_SCORE = 45;
 
 void initializeRobot() {
+	servo[hopper] = HOPPER_LOAD;
+	servo[latch] = GRABBER_UP;
   return;
 }
 
