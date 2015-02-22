@@ -23,8 +23,6 @@ const int HOPPER_LOAD = 165;
 const int HOPPER_SCORE = 49;
 
 void initializeRobot() {
-	servo[hopper] = HOPPER_LOAD;
-	servo[latch] = LATCH_UP;
   return;
 }
 
@@ -76,6 +74,8 @@ void rustle() {
 task main()
 {
   initializeRobot();
+  servo[hopper] = HOPPER_LOAD;
+	servo[latch] = LATCH_UP;
 
   waitForStart(); // Wait for the beginning of autonomous phase.
 

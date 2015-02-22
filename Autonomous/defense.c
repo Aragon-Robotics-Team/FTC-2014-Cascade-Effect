@@ -22,8 +22,6 @@ const int HOPPER_LOAD = 165;
 
 void initializeRobot()
 {
-  servo[hopper] = HOPPER_LOAD;
-	servo[latch] = LATCH_UP;
   return;
 }
 
@@ -60,6 +58,8 @@ void driveForward() { //Drives forward to blocking position
 task main()
 {
   initializeRobot();
+  servo[hopper] = HOPPER_LOAD;
+	servo[latch] = LATCH_UP;
 
   waitForStart(); // Wait for the beginning of autonomous phase.
 
