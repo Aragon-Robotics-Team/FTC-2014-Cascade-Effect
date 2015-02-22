@@ -23,7 +23,7 @@
 const int DEADBAND = 32;	//1/16th deadband for the terrible gamepads
 const int LATCH_DOWN = 125;
 const int LATCH_UP = 220;
-const int HOPPER_LOAD = 165;
+const int HOPPER_LOAD = 180;
 const int HOPPER_AIM = 100;
 const int HOPPER_SCORE = 45;
 
@@ -51,8 +51,8 @@ void drive(float power) {
 	else
 		rightTarget = 0;
 
-	leftLerped = lerp(leftCurrent, leftTarget, 0.01);
-	rightLerped = lerp(rightCurrent, rightTarget, 0.01);
+	leftLerped = lerp(leftCurrent, leftTarget, 0.025);
+	rightLerped = lerp(rightCurrent, rightTarget, 0.025);
 
 	motor[leftDrive] = leftLerped;
 	motor[rightDrive] = rightLerped;
