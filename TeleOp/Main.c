@@ -26,6 +26,9 @@ const int LATCH_UP = 220;
 const int HOPPER_LOAD = 180;
 const int HOPPER_AIM = 100;
 const int HOPPER_SCORE = 45;
+const int IR_STOW = 0;
+const int IR_SENSE = 120;
+const int IR_RAM = 225;
 
 void initializeRobot() {
   return;
@@ -112,6 +115,43 @@ void outtakeSpecial() {
 	}
 }
 
+int irMode = 0;	//0: STOW, 1: SENSE, 2: RAM
+void irSetter() {
+	if(joy2Btn(7))
+		irMode = 0;
+	else if(joy2Btn(5)) {
+		switch(irMode) {
+			case 0:
+				irMode = 1;
+				wait1Msec(200);
+				break;
+			case 1:
+				irMode = 2;
+				wait1Msec(200);
+				break;
+			case 2:
+				irMode = 0;
+				wait1Msec(200);
+				break;
+			default:
+				irMode = 0;
+		}
+	}
+	switch(irMode) {
+		case 0:
+				servo[ir] = IR_STOW;
+				break;
+		case 1:
+			servo[ir] = IR_SENSE;
+			break;
+		case 2:
+			servo[ir] = IR_RAM;
+			break;
+		default:
+			irMode = 0;
+	}
+}
+
 void rollers() {	//Migrate to joy1 for Dual Drivers
 	if(joy2Btn(1))
 		motor[intakeRoller] = 96;
@@ -141,6 +181,7 @@ task main() {
   	drive(1);
   	doLatch();
   	outtakeSpecial();
+  	irSetter();
   	rollers();
   	liftManual();
   }
