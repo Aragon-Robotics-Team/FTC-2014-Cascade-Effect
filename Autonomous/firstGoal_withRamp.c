@@ -107,7 +107,7 @@ task main()
 
   turnAround();
 
-  driveTo60();
+  //driveTo60(); //commented out for safety purposes
 
   while(true);	//Do nothing until game is done
 }

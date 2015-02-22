@@ -69,17 +69,17 @@ void doLatch() { //DONT Migrate to joy1 for Dual Drivers
 }
 
 void outtake() {	//Migrate to joy1 for Dual Drivers
-	if(joy2Btn(6))	//Right Bumper
+	if(joy1Btn(6))	//Right Bumper
 		servo[hopper] = HOPPER_SCORE;
-	else if(joy2Btn(8)) //Right Trigger
+	else if(joy1Btn(8)) //Right Trigger
 		servo[hopper] = HOPPER_LOAD;
 }
 
 int outtakeMode = 0;	//0: LOAD, 1: AIM, 2: SCORE
 void outtakeSpecial() {
-	if(joy2Btn(8))
+	if(joy1Btn(8))
 		outtakeMode = 0;
-	else if(joy2Btn(6)) {
+	else if(joy1Btn(6)) {
 		switch(outtakeMode) {
 			case 0:
 				outtakeMode = 1;
@@ -113,20 +113,20 @@ void outtakeSpecial() {
 }
 
 void rollers() {	//Migrate to joy1 for Dual Drivers
-	if(joy2Btn(1))
+	if(joy1Btn(1))
 		motor[intakeRoller] = 96;
-	else if(joy2Btn(3))
+	else if(joy1Btn(3))
 		motor[intakeRoller] = -96;
 	else
 		motor[intakeRoller] = 0;//Migrate to joy1 for Dual Drivers
 }
 
 void liftManual() {	//Migrate to joy1 for Dual Drivers
-	if(joystick.joy2_TopHat == 0)
+	if(joystick.joy1_TopHat == 0)
 		motor[lift] = 128;
-	else if(joystick.joy2_TopHat == 4)
+	else if(joystick.joy1_TopHat == 4)
 		motor[lift] = -96;
-	else if(joystick.joy2_TopHat == -1)
+	else if(joystick.joy1_TopHat == -1)
 		motor[lift] = 0;
 }
 
