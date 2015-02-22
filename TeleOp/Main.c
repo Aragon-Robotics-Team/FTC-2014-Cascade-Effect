@@ -31,15 +31,34 @@ void initializeRobot() {
   return;
 }
 
+float lerp(float current, float target, float factor) {
+		return current + factor * (target - current);
+}
+
+float leftTarget = 0;
+float leftCurrent = 0;
+float leftLerped = 0;
+float rightTarget = 0;
+float rightCurrent = 0;
+float rightLerped = 0;
 void drive(float power) {
 	if(abs(joystick.joy1_y1) > DEADBAND)
- 		motor[leftDrive] = joystick.joy1_y1 * power;
+ 		leftTarget = -1 * joystick.joy1_y1 * power;
 	else
-		motor[leftDrive] = 0;
+		leftTarget = 0;
  	if(abs(joystick.joy1_y2) > DEADBAND)
- 		motor[rightDrive] = joystick.joy1_y2 * power;
+ 		rightTarget = joystick.joy1_y2 * power;
 	else
-		motor[rightDrive] = 0;
+		rightTarget = 0;
+
+	leftLerped = lerp(leftCurrent, leftTarget, 0.01);
+	rightLerped = lerp(rightCurrent, rightTarget, 0.01);
+
+	motor[leftDrive] = leftLerped;
+	motor[rightDrive] = rightLerped;
+
+	leftCurrent = leftLerped;
+	rightCurrent = rightLerped;
 }
 
 void doLatch() { //DONT Migrate to joy1 for Dual Drivers
